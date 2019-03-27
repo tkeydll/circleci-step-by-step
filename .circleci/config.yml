@@ -6,6 +6,7 @@ jobs:
       - image: circleci/postgres:9.6.3-alpine
         environment:
           POSTGRES_USER: root
+          POSTGRES_PASS: hoge
           POSTGRES_DB: circle_test
     steps:
       - checkout
@@ -20,6 +21,7 @@ jobs:
       - image: circleci/postgres:9.6.3-alpine
         environment:
           POSTGRES_USER: root
+          POSTGRES_PASS: hoge
           POSTGRES_DB: circle_test
     steps:
       - checkout
@@ -34,6 +36,7 @@ jobs:
       - image: circleci/postgres:9.6.3-alpine
         environment:
           POSTGRES_USER: root
+          POSTGRES_PASS: hoge
           POSTGRES_DB: circle_test
     steps:
       - checkout
