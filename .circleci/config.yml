@@ -9,7 +9,33 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - run: echo "Hello CircleCI!"
+      - run: echo "Hello CircleCI! with jdk-8"
+      - run: 
+          name: wait for db
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+  jdk-9:
+    docker:
+      - image: circleci/openjdk:9-jdk-browsers
+      - image: circleci/postgres:9.6.3-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - run: echo "Hello CircleCI! with jdk-9"
+      - run: 
+          name: wait for db
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+  jdk-10:
+    docker:
+      - image: circleci/openjdk:10-jdk-browsers
+      - image: circleci/postgres:9.6.3-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - run: echo "Hello CircleCI! with jdk-10"
       - run: 
           name: wait for db
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
