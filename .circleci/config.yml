@@ -8,6 +8,9 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+    
+    parallelism: 4
+
     steps:
       - checkout
       - run: echo "Hello CircleCI! with jdk-8"
@@ -22,7 +25,12 @@ jobs:
           paths:
               - ~/.m2
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-      - run: mvn package
+
+      - run: 
+          command: |
+              mvn test -Dtest=$(circleci tests glob "src/test/**/*.java" | circleci tests split --split-by=timings | sed -E 's/^(.*\/)*//' | sed -z 's/\n/,/g')
+              mvn package -Dmaven.test.skip
+
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
@@ -35,6 +43,9 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+    
+    parallelism: 4
+
     steps:
       - checkout
       - run: echo "Hello CircleCI! with jdk-10"
@@ -49,7 +60,12 @@ jobs:
           paths:
               - ~/.m2
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-      - run: mvn package
+
+      - run: 
+          command: |
+              mvn test -Dtest=$(circleci tests glob "src/test/**/*.java" | circleci tests split --split-by=timings | sed -E 's/^(.*\/)*//' | sed -z 's/\n/,/g')
+              mvn package -Dmaven.test.skip
+
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
@@ -62,6 +78,9 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+    
+    parallelism: 4
+
     steps:
       - checkout
       - run: echo "Hello CircleCI! with jdk-11"
@@ -76,7 +95,12 @@ jobs:
           paths:
               - ~/.m2
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
-      - run: mvn package
+
+      - run: 
+          command: |
+              mvn test -Dtest=$(circleci tests glob "src/test/**/*.java" | circleci tests split --split-by=timings | sed -E 's/^(.*\/)*//' | sed -z 's/\n/,/g')
+              mvn package -Dmaven.test.skip
+
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
